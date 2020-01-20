@@ -20,6 +20,7 @@ const successTemperature = weather => {
     weather = weather.data;
     
     const weatherData = {
+        name: weather.name,
         description: weather.weather[0].description,
         temperature: convertKelvinToCelsium(weather.main.temp),
         feels_like: convertKelvinToCelsium(weather.main.feels_like),

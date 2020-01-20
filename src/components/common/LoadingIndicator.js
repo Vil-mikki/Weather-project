@@ -5,7 +5,6 @@ import { CircularProgress } from '@material-ui/core'
 export default class LoadingIndicator extends Component {
     static propTypes = {
         isVisible: PropTypes.bool,
-        customClass: PropTypes.string,
         children: PropTypes.oneOfType([PropTypes.array, PropTypes.object])
     };
 

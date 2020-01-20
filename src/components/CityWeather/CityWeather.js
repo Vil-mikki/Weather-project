@@ -4,7 +4,6 @@ import { format } from 'date-fns';
 import './CityWeather.scss';
 
 function CityWeather(props) {
-    
     const weather = props.weather;
 
     const getCurrentTime = () => {
@@ -15,7 +14,7 @@ function CityWeather(props) {
         <div className='weather-card'>
             <div className='weather-card__header'>
                 <h2 className='weather-card__header-cityName'>
-                    {props.city}
+                    {weather.name}
                 </h2>
                 <p className='weather-card__header-description'>
                     {weather.description}

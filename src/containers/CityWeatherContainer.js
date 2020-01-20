@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import CityWeather from '../components/CityWeather/CityWeather';
 import { fetchWeather } from '../actions/temperature/temperatureAC';
 
 class CityWeatherContainer extends Component {
+    static propTypes = {
+        fetchWeather: PropTypes.func,
+        weather: PropTypes.object
+    }
+
     componentDidUpdate() {
-        this.props.fetchWeather(this.props.match.params.city);
+        if(this.props.match.params.city) {
+            this.props.fetchWeather(this.props.match.params.city);
+        }
     }
 
     render() {
-        const city = this.props.match.params.city;
-
         return(
-            <CityWeather city={city} weather={this.props.weather} />
+            <CityWeather weather={this.props.weather} />
         )
     }
 }
