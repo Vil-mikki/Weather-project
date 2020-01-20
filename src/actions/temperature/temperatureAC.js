@@ -1,6 +1,6 @@
 import temperatureAT from './temperatureAT';
 import { baseUrl, APIKey } from '../../constants/api';
-import { convertKelvinToCelsium } from '../../util/convertKelvinToCelsius';
+import { convertKelvinToCelsius } from '../../util/convertKelvinToCelsius';
 
 const axios = require('axios');
 
@@ -22,8 +22,8 @@ const successTemperature = weather => {
     const weatherData = {
         name: weather.name,
         description: weather.weather[0].description,
-        temperature: convertKelvinToCelsium(weather.main.temp),
-        feels_like: convertKelvinToCelsium(weather.main.feels_like),
+        temperature: convertKelvinToCelsius(weather.main.temp),
+        feels_like: convertKelvinToCelsius(weather.main.feels_like),
         wind: weather.wind.speed,
         humidity: weather.main.humidity,
         pressure: weather.main.pressure
