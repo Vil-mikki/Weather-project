@@ -1,5 +1,6 @@
 import temperatureAT from './temperatureAT';
 import { baseUrl, APIKey } from '../../constants/api';
+import { convertKelvinToCelsium } from '../../util/convertKelvinToCelsius';
 
 const axios = require('axios');
 
@@ -15,12 +16,25 @@ const requestTemperature = () => ({
     isError: false
 });
 
-const successTemperature = temperature => ({
-    type: FETCH_TEMPERATURE_SUCCESS,
-    isLoading: false,
-    isError: false,
-    temperature
-});
+const successTemperature = weather => {
+    weather = weather.data;
+    
+    const weatherData = {
+        description: weather.weather[0].description,
+        temperature: convertKelvinToCelsium(weather.main.temp),
+        feels_like: convertKelvinToCelsium(weather.main.feels_like),
+        wind: weather.wind.speed,
+        humidity: weather.main.humidity,
+        pressure: weather.main.pressure
+    };
+
+    return ({
+        type: FETCH_TEMPERATURE_SUCCESS,
+        isLoading: false,
+        isError: false,
+        weatherData
+    })
+};
 
 const failureTemperature = error => ({
     type: FETCH_TEMPERATURE_FAILURE,
@@ -29,11 +43,11 @@ const failureTemperature = error => ({
     error
 });
 
-export const fetchTemperature = city => async dispatch => {
+export const fetchWeather = city => async dispatch => {
     dispatch(requestTemperature());
     try {
-        const temperature = await axios.get(`${baseUrl}/data/2.5/weather?q=${city}&APPID=${APIKey}`);
-        dispatch(successTemperature(temperature.data.main.temp));
+        const weather = await axios.get(`${baseUrl}/data/2.5/weather?q=${city}&APPID=${APIKey}`);
+        dispatch(successTemperature(weather));
     } catch (error) {
         dispatch(failureTemperature(error));
     }

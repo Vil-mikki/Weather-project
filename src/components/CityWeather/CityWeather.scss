@@ -1,0 +1,38 @@
+.weather-card {
+    width: 300px;
+    min-height: 230px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    font-size: 14px;
+    color: #333;
+    border-radius: 6px;
+    background-image: linear-gradient(to top left,#feb020,#ffd05c);
+    box-shadow: 5px 5px 15px #666;
+    box-sizing: border-box;
+    &__header {
+        flex-basis: 100%;
+        &-cityName {
+            margin-bottom: 0;
+        }
+    }
+    &__temperature {
+        flex-basis: 50%;
+        background-color: #fff;
+        &-temp {
+            font-size: 70px;
+        }
+    }
+    &__details {
+        flex-basis: 50%;
+        text-align: left;
+        background-color: #fff;
+        &-info {
+            font-weight: bold;
+        }
+    }
+    &__time {
+        padding: 4px 0;
+        flex-basis: 100%;
+    }
+}

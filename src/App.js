@@ -4,34 +4,46 @@ import { connect } from 'react-redux';
 
 import HeaderContainer from './containers/HeaderContainer';
 import CityWeatherContainer from './containers/CityWeatherContainer';
-import { fetchTemperature } from './actions/temperature/temperatureAC';
+import LoadingIndicator from './components/common/LoadingIndicator';
+import { fetchWeather } from './actions/temperature/temperatureAC';
 
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   componentDidMount() {
-    this.props.fetchTemperature(this.props.match.params.city);
+    this.props.fetchWeather(this.props.match.params.city);
   }
 
   render() {
     return (
       <div className="App">
-          <HeaderContainer />
-          <CityWeatherContainer />
+        <HeaderContainer />
+        <div className='city-weather__container'>
+          <LoadingIndicator isVisible={this.props.isLoading}>
+            <CityWeatherContainer weather={this.props.weather} />
+          </LoadingIndicator>
+        </div>
       </div>
     )
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    weather: state.weatherData,
+    isLoading: state.isLoading
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
-      fetchTemperature: city => dispatch(fetchTemperature(city))
+      fetchWeather: city => dispatch(fetchWeather(city))
   }
 }
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(App)
 );

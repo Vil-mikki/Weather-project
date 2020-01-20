@@ -9,14 +9,13 @@ const {
 const initialState = {
     isLoading: true, 
     isError: false,
-    temperature: 0
+    weatherData: {}
 };
 
 const temperatureReducer = (
     state = initialState,
-    { type, isLoading, isError, temperature, error }
+    { type, isLoading, isError, weatherData, error }
 ) => {
-    console.log(temperature)
     switch (type) {
         case FETCH_TEMPERATURE_REQUEST:
             return {
@@ -29,7 +28,7 @@ const temperatureReducer = (
                 ...state,
                 isLoading,
                 isError,
-                temperature
+                weatherData
             };
         case FETCH_TEMPERATURE_FAILURE:
             return {

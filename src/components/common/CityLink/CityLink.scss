@@ -1,0 +1,9 @@
+.city-link {
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+        background-color: #e96e50;
+    }
+}

@@ -1,6 +1,8 @@
 import React from 'react';
-import CityLink from './CityLink';
-import CITY_NAMES from '../constants/cityNames';
+import CityLink from '../common/CityLink/CityLink';
+import CITY_NAMES from '../../constants/cityNames';
+
+import './Header.scss';
 
 function Header() {
 
