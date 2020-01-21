@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import LoadingIndicator from '../components/common/LoadingIndicator';
 
+import LoadingIndicator from '../components/common/LoadingIndicator';
 import CityWeather from '../components/CityWeather/CityWeather';
 import { fetchWeather } from '../actions/temperature/temperatureAC';
+import { selectWeatherData } from '../selectors';
 
 class CityWeatherContainer extends Component {
     static propTypes = {
         fetchWeather: PropTypes.func,
-        weather: PropTypes.object
+        weather: PropTypes.object,
+        isLoading: PropTypes.bool
     }
 
     componentDidMount() {
@@ -37,7 +39,7 @@ class CityWeatherContainer extends Component {
 
 function mapStateToProps(state) {
     return {
-      weather: state.weatherData,
+      weather: selectWeatherData(state),
       isLoading: state.isLoading
     }
   }

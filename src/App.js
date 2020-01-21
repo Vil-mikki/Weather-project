@@ -13,10 +13,7 @@ import './App.scss';
 
 class App extends Component {
   static propTypes = {
-    weather: PropTypes.object,
-    isLoading: PropTypes.bool,
-    isError: PropTypes.bool,
-    fetchWeather: PropTypes.func
+    isError: PropTypes.bool
   }
 
   render() {
