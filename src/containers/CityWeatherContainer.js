@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import LoadingIndicator from '../components/common/LoadingIndicator';
 
 import CityWeather from '../components/CityWeather/CityWeather';
-import { fetchWeather } from '../actions/temperature/temperatureAC';
+import { fetchTemperature } from '../actions/temperature/temperatureAC';
 
 class CityWeatherContainer extends Component {
     static propTypes = {
@@ -44,7 +44,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchWeather: city => dispatch(fetchWeather(city))
+        fetchWeather: city => dispatch(fetchTemperature(city))
     }
 }
 

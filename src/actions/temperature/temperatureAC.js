@@ -5,18 +5,24 @@ import { convertKelvinToCelsius } from '../../util/convertKelvinToCelsius';
 const axios = require('axios');
 
 const {
+    FETCH_TEMPERATURE,
     FETCH_TEMPERATURE_REQUEST,
     FETCH_TEMPERATURE_SUCCESS,
     FETCH_TEMPERATURE_FAILURE
 } = temperatureAT;
 
-const requestTemperature = () => ({
+export const fetchTemperature = city => ({
+    type: FETCH_TEMPERATURE,
+    city
+})
+
+export const requestTemperature = () => ({
     type: FETCH_TEMPERATURE_REQUEST,
     isLoading: true,
     isError: false
 });
 
-const successTemperature = weather => {
+export const successTemperature = weather => {
     weather = weather.data;
     
     const weatherData = {
@@ -37,7 +43,7 @@ const successTemperature = weather => {
     })
 };
 
-const failureTemperature = error => ({
+export const failureTemperature = error => ({
     type: FETCH_TEMPERATURE_FAILURE,
     isLoading: false,
     isError: true,
