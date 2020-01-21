@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import LoadingIndicator from '../components/common/LoadingIndicator';
 
 import CityWeather from '../components/CityWeather/CityWeather';
 import { fetchWeather } from '../actions/temperature/temperatureAC';
@@ -12,18 +13,34 @@ class CityWeatherContainer extends Component {
         weather: PropTypes.object
     }
 
-    componentDidUpdate() {
-        if(this.props.match.params.city) {
-            this.props.fetchWeather(this.props.match.params.city);
+    componentDidMount() {
+    if(this.props.match.params.city) {
+      this.props.fetchWeather(this.props.match.params.city);
+    }
+  }
+
+    componentDidUpdate(prevProps) {
+        const city = this.props.match.params.city;
+        if(city && prevProps.match.params.city !== city) {
+            this.props.fetchWeather(city);
         }
     }
 
     render() {
         return(
-            <CityWeather weather={this.props.weather} />
+            <LoadingIndicator isVisible={this.props.isLoading}>
+                <CityWeather weather={this.props.weather} />
+            </LoadingIndicator>
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+      weather: state.weatherData,
+      isLoading: state.isLoading
+    }
+  }
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -33,7 +50,7 @@ function mapDispatchToProps(dispatch) {
 
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         mapDispatchToProps
     )(CityWeatherContainer)
 );
