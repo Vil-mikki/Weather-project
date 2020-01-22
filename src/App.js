@@ -20,11 +20,12 @@ class App extends Component {
   }
 
   render() {
+    const city = this.props.match.params.city;
     return (
       <div className="App">
         <HeaderContainer />
         <div className='city-weather__container'>
-          <CityWeatherContainer />   
+          <CityWeatherContainer city={city} />   
           <Snackbar open={this.props.isError}>
             <Alert severity="error">
               Sorry, we can't find this city! Please, try again!

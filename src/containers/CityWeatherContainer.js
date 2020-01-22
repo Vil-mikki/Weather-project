@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingIndicator from '../components/common/LoadingIndicator';
@@ -10,18 +9,20 @@ import { fetchWeather } from '../actions/temperature/temperatureAC';
 class CityWeatherContainer extends Component {
     static propTypes = {
         fetchWeather: PropTypes.func,
-        weather: PropTypes.object
+        weather: PropTypes.object,
+        isLoading: PropTypes.bool,
+        city: PropTypes.string
     }
 
     componentDidMount() {
-    if(this.props.match.params.city) {
-      this.props.fetchWeather(this.props.match.params.city);
+    if(this.props.city) {
+      this.props.fetchWeather(this.props.city);
     }
   }
 
     componentDidUpdate(prevProps) {
-        const city = this.props.match.params.city;
-        if(city && prevProps.match.params.city !== city) {
+        const city = this.props.city;
+        if(city && prevProps.city !== city) {
             this.props.fetchWeather(city);
         }
     }
@@ -48,9 +49,7 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default withRouter(
-    connect(
+export default connect(
         mapStateToProps,
         mapDispatchToProps
-    )(CityWeatherContainer)
-);
+)(CityWeatherContainer);
