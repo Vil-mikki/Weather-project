@@ -19,7 +19,7 @@ const props = {
 const cityWeather = shallow(<CityWeather {...props} />);
 
 
-describe('<CityWeatherContainer />', () => {
+describe('<CityWeather />', () => {
 	it('should match snapshot', () => {
 		expect(toJson(cityWeather)).toMatchSnapshot();
     });

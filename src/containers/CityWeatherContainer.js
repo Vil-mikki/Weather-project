@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingIndicator from '../components/common/LoadingIndicator';
@@ -15,9 +15,9 @@ class CityWeatherContainer extends Component {
     }
 
     componentDidMount() {
-    if(this.props.city) {
-      this.props.fetchWeather(this.props.city);
-    }
+        if(this.props.city) {
+            this.props.fetchWeather(this.props.city);
+        }
   }
 
     componentDidUpdate(prevProps) {
@@ -29,9 +29,12 @@ class CityWeatherContainer extends Component {
 
     render() {
         return(
-            <LoadingIndicator isVisible={this.props.isLoading}>
-                <CityWeather weather={this.props.weather} />
-            </LoadingIndicator>
+            <Fragment>
+                {this.props.isLoading ?
+                    <LoadingIndicator isVisible={this.props.isLoading} /> :
+                    <CityWeather weather={this.props.weather} />
+                }
+            </Fragment>
         )
     }
 }
@@ -50,6 +53,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(
-        mapStateToProps,
-        mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(CityWeatherContainer);

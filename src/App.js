@@ -3,8 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import HeaderContainer from './containers/HeaderContainer';
-import CityWeatherContainer from './containers/CityWeatherContainer';
+import Header from './components/Header/Header';
+import { default as CityWeather } from './containers/CityWeatherContainer';
+import { errorMessage } from './constants/errorMessages';
 
 import { Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
@@ -14,23 +15,23 @@ import './App.scss';
 class App extends Component {
   static propTypes = {
     weather: PropTypes.object,
-    isLoading: PropTypes.bool,
-    isError: PropTypes.bool,
-    fetchWeather: PropTypes.func
+    isError: PropTypes.bool
   }
 
   render() {
     const city = this.props.match.params.city;
     return (
       <div className="App">
-        <HeaderContainer />
+        <Header />
         <div className='city-weather__container'>
-          <CityWeatherContainer city={city} />   
-          <Snackbar open={this.props.isError}>
-            <Alert severity="error">
-              Sorry, we can't find this city! Please, try again!
-            </Alert>
-          </Snackbar>
+          {!this.props.isError ?
+            <CityWeather city={city} /> :
+            <Snackbar open={this.props.isError}>
+              <Alert severity="error">
+                {errorMessage}
+              </Alert>
+            </Snackbar>
+          }
         </div>
       </div>
     )

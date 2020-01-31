@@ -8,13 +8,8 @@ const CityLink = ({ city, cityName }) => (
     <NavLink
       exact
       to={`/${city}`}
-      style={{
-        textDecoration: 'none',
-        color: 'white'
-      }}
-      activeStyle={{
-        color: '#feb020'
-      }}
+      className='city-link__insiders'
+      activeStyle={{color: '#feb020'}}
     >
       {cityName}
     </NavLink>
