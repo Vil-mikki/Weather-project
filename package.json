@@ -26,7 +26,21 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier -- write src/**/*.{ts,tsx,js,jsx}",
+    "lint": "eslint --ext .js,.jsx src || exit 0",
+    "lint:fix": "eslint --fix --ext .js,.jsx src || exit 0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "npm run lint:fix",
+      "git add"
+    ]
   },
   "jest": {
     "setupFilesAfterEnv": [
@@ -57,6 +71,19 @@
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.8.3",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2"
+    "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "^6.3.1",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jest": "^23.6.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "prettier": "^1.19.1",
+    "husky": "^4.2.1",
+    "lint-staged": "^10.0.4"
   }
 }
