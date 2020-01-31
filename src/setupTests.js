@@ -8,6 +8,10 @@ import Header from './components/Header/Header';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-const headerWrapper = mount(<Router><Header /></Router>);
+const headerWrapper = mount(
+  <Router>
+    <Header />
+  </Router>
+);
 expect(headerWrapper.find('.header')).toHaveClassName('header');
 expect(headerWrapper).toContainMatchingElements(3, 'CityLink');
