@@ -5,23 +5,18 @@ import CITY_NAMES from '../../constants/cityNames';
 
 import './Header.scss';
 
-class Header extends Component {
+function Header() {
+  function renderLinks() {
+    return Object.keys(CITY_NAMES).map(city => (
+      <CityLink
+        key={CITY_NAMES[city].id}
+        city={CITY_NAMES[city].value}
+        cityName={CITY_NAMES[city].label}
+      />
+    ));
+  }
 
-    renderLinks = () => {
-        const cities = [];
-        for(let city in CITY_NAMES) {
-            cities.push(<CityLink key={CITY_NAMES[city].id} city={CITY_NAMES[city].value} cityName={CITY_NAMES[city].label} />)
-        }
-        return cities;
-    }
-
-    render() {
-        return(
-            <div className="header">
-                {this.renderLinks()}
-            </div> 
-        )
-    }
+  return <div className="header">{renderLinks()}</div>;
 }
 
 export default withRouter(Header);

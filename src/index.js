@@ -9,12 +9,10 @@ import store from './store';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Route path="/:city?" component={App} />
-      <Route
-        exact
-        path="/"
-        render={() => <Redirect to={`${CITY_NAMES.SAINT_PETERSBURG.value}`} />}
-      />
+      <Route exact path="/:city" component={App} />
+      <Route exact path="/">
+        <Redirect exact to={`${CITY_NAMES.SAINT_PETERSBURG.value}`} />
+      </Route>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

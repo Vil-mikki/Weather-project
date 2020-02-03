@@ -14,16 +14,14 @@ const requestTemperature = () => ({
     isError: false
 });
 
-const successTemperature = weather => {
+const successTemperature = ({main: { temp, feels_like, humidity, pressure },name,wind, weather}) => {
 
-    const { temp, feels_like, humidity, pressure } = weather.main;
-    
     const weatherData = {
-        name: weather.name,
-        description: weather.weather[0].description,
+        name,
+        description: weather[0].description,
         temperature: convertKelvinToCelsius(temp),
         feels_like: convertKelvinToCelsius(feels_like),
-        wind: weather.wind.speed,
+        wind: wind.speed,
         humidity,
         pressure
     };
@@ -46,8 +44,8 @@ const failureTemperature = error => ({
 export const fetchWeather = city => async dispatch => {
     dispatch(requestTemperature());
     try {
-        const weather = await getWeather(city);
-        dispatch(successTemperature(weather.data));
+        const { data : weather } = await getWeather(city);
+        dispatch(successTemperature(weather));
     } catch (error) {
         dispatch(failureTemperature(error));
     }
